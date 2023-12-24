@@ -17,15 +17,16 @@ router.post("/create", async (req, res) => {
   res.redirect("/");
 });
 
-router.get("/:cubeId/details", (req, res) => {
+router.get("/:cubeId/details", async (req, res) => {
   const { cubeId } = req.params;
-  const cube = cubeService.getSingleCune(cubeId);
+  const cube = await cubeService.getSingleCune(cubeId).lean();
+  console.log(cube);
 
   if (!cube) {
     res.redirect("/404");
     return;
   }
-  res.render("details", { ...cube });
+  res.render("details", { cube });
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const Cube = require("../models/Cube");
+const Cube = require("./../models/Cube");
 const cubes = [];
 
 exports.create = async (cubeData) => {
@@ -6,10 +6,9 @@ exports.create = async (cubeData) => {
   const cube = await Cube.create(cubeData);
   return cube;
 
-  //2 variant 
+  //2 variant
   // const cube = new Cube(cubeData);
   // await cube.save()
-
 
   // const newCube = {
   //   id: uniqid(),
@@ -20,8 +19,9 @@ exports.create = async (cubeData) => {
   // return newCube;
 };
 
-exports.getAll = (search, from, to) => {
-  let filterCubes = [...cubes];
+exports.getAll = async (search, from, to) => {
+ // let filterCubes = [...cubes];
+ let filterCubes = await Cube.find().lean();
 
   if (search) {
     filterCubes = filterCubes.filter((cube) =>
@@ -40,8 +40,8 @@ exports.getAll = (search, from, to) => {
       (cube) => cube.difficultyLevel <= Number(to)
     );
   }
+  return filterCubes;
 };
 
-exports.getSingleCune = (id) => {
-  return cubes.find((cube) => cube.id === id);
-};
+exports.getSingleCune = (id) => Cube.findById(id);
+//return cubes.find((cube) => cube.id === id);
