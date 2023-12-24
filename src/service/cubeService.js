@@ -1,24 +1,5 @@
 const uniqid = require("uniqid");
-const cubes = [
-  // {
-  //   name,
-  //   description,
-  //   imageUrl,
-  //   difficultyLevel,
-  // },
-  // {
-  //   name,
-  //   description,
-  //   imageUrl,
-  //   difficultyLevel,
-  // },
-  // {
-  //   name,
-  //   description,
-  //   imageUrl,
-  //   difficultyLevel,
-  // },
-];
+const cubes = [];
 
 exports.create = (cubeData) => {
   const newCube = {
