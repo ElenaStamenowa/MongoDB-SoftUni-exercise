@@ -1,14 +1,23 @@
-const uniqid = require("uniqid");
+const Cube = require("../models/Cube");
 const cubes = [];
 
-exports.create = (cubeData) => {
-  const newCube = {
-    id: uniqid(),
-    ...cubeData,
-  };
+exports.create = async (cubeData) => {
+  //1 variant
+  const cube = await Cube.create(cubeData);
+  return cube;
 
-  cubes.push(newCube);
-  return newCube;
+  //2 variant 
+  // const cube = new Cube(cubeData);
+  // await cube.save()
+
+
+  // const newCube = {
+  //   id: uniqid(),
+  //   ...cubeData,
+  // };
+
+  // cubes.push(newCube);
+  // return newCube;
 };
 
 exports.getAll = (search, from, to) => {
@@ -16,7 +25,7 @@ exports.getAll = (search, from, to) => {
 
   if (search) {
     filterCubes = filterCubes.filter((cube) =>
-      cube.name.toLowerCase().includes(search)
+      cube.name.toLowerCase().includes(search.toLowerCase())
     );
   }
 
