@@ -43,10 +43,13 @@ exports.getAll = async (search, from, to) => {
   return filterCubes;
 };
 
-exports.getSingleCube = (id) => Cube.findById(id);
+exports.getSingleCube = (id) => Cube.findById(id).populate("accessories");
 //return cubes.find((cube) => cube.id === id);
 
 exports.attachAccessory = async (cubeId, accessoryId) => {
+  // return Cube.findByIdAndUpdate(cubeId, {
+  //   $push: { accessories: accessoryId },
+  // });
   const cube = await this.getSingleCube(cubeId);
   cube.accessories.push(accessoryId);
   return cube.save();
